@@ -1,2 +1,2 @@
 # Python-Tutorials
-Python tutorials files
+Python tutorial files
