@@ -1,4 +1,3 @@
-from collections import Counter
 input_file1 = r'input_file.txt'
 input_file2 = r'input_file.1.txt'
 
@@ -43,20 +42,20 @@ def get_match_diff(left, right):
 
 if __name__ == '__main__':
     # Gets hashes of all lines for both files
-    counter1 = accumulate_index(map(hash, open(input_file1)))
-    counter2 = accumulate_index(map(hash, open(input_file2)))
+    dict1 = accumulate_index(map(hash, open(input_file1)))
+    dict2 = accumulate_index(map(hash, open(input_file2)))
 
     diff_hashes, matching_hashes = get_match_diff(
-        counter1.keys(), counter2.keys())
+        dict1.keys(), dict2.keys())
 
     diff_lines_count = len(diff_hashes)
 
     matching_lines_count = 0
     for h in matching_hashes:
         with open(input_file1) as fp1, open(input_file2) as fp2:
-            st_counter_1 = Counter(get_lines(fp1, counter1[h]))
-            st_counter_2 = Counter(get_lines(fp2, counter2[h]))
-            d, m = get_match_diff(st_counter_1.keys(), st_counter_2.keys())
+            left_lines = get_lines(fp1, dict1[h])
+            right_lines = get_lines(fp2, dict2[h])
+            d, m = get_match_diff(left_lines, right_lines)
             diff_lines_count += len(d)
             matching_lines_count += len(m)
 
